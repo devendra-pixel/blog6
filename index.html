@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DATABASE MANAGEMENT</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: blue;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        h2{
+           background-color: green;
+           color: #fff;
+           padding: 20px;
+           text-ailgn: center;
+           
+
+        hr{
+           background-color: #444;
+           padding: 1rem;
+            }
+      
+
+        main {
+            margin: 2rem;
+            background-color: #fff;
+            padding: 1rem;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 90px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>concurrent control technique-two phase locking</h1>
+    </header>
+    <main>
+        <article>
+            <hr>
+            <h2 align="center">concurrcy control</h2>
+            <hr>
+           <p align="center"><img src="https://th.bing.com/th/id/OIP.lFuVq63lBrUw-4J5rmObBgHaEH?w=321&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" height="300" width="400"></p>
+
+<p align="center"><strong><b>INTRODUCTION</b></strorg></p>
+<p> if all schedules in a concurrent environment are restricted to serializable schedules,the
+result obtained will be consistent with some serial schedules unnecessarily limits the degree
+of concurrent.Futhermore,testing for serializablity of a schedule is not only computationally expensive but it is an after-the-fact techique and impratical.Thus,one of the following <b>concurrent control</b>schemes is applied in a transactions are serializable.</p> <p>The schemes we discuss are locking,timestamp-based order,optimistic scheduling and the multii version technique.</p>
+<p>The intent of locking is to ensure <b>serializability</b>by ensuring mutual exclusion in accessing data-items. In the timestamp-based ordering scheme, the order of execution of the transactions is selected a priori by assigning each transaction an unique value.<u>This value, usually based on the system clock, is called a timestamp</u>. The values of the timestamp of the transactions determine the sequence in which transactions con¬ testing for a given data-item will be executed. Conflicts in the timestamp scheme are resolved by abort and rollback. In the optimistic scheme it is recognized that the conflict between transactions, though possible, is in reality very rare, and it avoids all forms of locking.
+ Locks</p>
+<ol type="1">
+ There are various modes in which a data item may be locked. In this section, we
+ restrict our attention to two modes:
+<li> Shared. IfatransactionTi has obtained a shared-mode lock (denoted by S)on item Q,thenTi canread,butcannotwrite,Q.</li>
+ <li> Exclusive. IfatransactionTi has obtained an exclusive-mode lock (denoted
+ by X) onitem Q,thenTi canbothreadandwriteQ</li>
+</ol>
+
+<p>The schedule shows the actions executed by the transactions, as well as the points
+ at which the <b>concurrency-control</b> manager grants the locks. The transaction mak
+ing a lock request cannot execute its next action until the concurrency-control man
+ager grants the lock. Hence, the lock must be granted in the interval of time between
+ the lock-request operation and the following action of the transaction. Exactly when
+ within this interval the lock is granted is not important; we can safely assume that the
+ lock is granted just before the following action of the transaction. We shall therefore
+ drop the column depicting the actions of the concurrency-control manager from all
+ schedules depicted in the rest of the chapter. We let you infer when locks are granted.
+ Suppose now that unlocking is delayed to the end of the transaction. Transac
+tion T3 corresponds to T1 with unlocking delayed.</p>
+<hr>
+            <h3 align="center">Understanding Two-Phase Locking (2PL)</h3>
+<hr>
+<p align="center"><img src="https://th.bing.com/th/id/OIP.2tELmeSGt8rpZAEyDYa_hAHaEw?w=251&h=180&c=7&r=0&o=5&dpr=1.3&pid=1.7" width="400" height="300"></p>
+                <p><strong>Two-Phase Locking (2PL)</strong> is a concurrency control method used to ensure serializability in database systems. The primary goal of 2PL is to prevent conflicts between transactions while maintaining consistency in a multi-user environment. Here’s how it works:</p>
+                <p>The Two-Phase Locking protocol is divided into two phases:</p>
+                <ul>
+                    <li><strong>Growing Phase:</strong> During this phase, a transaction can acquire locks, but cannot release any locks.</li>
+                    <li><strong>Shrinking Phase:</strong> After the growing phase, a transaction enters the shrinking phase where it can release locks but cannot acquire any new locks.</li>
+                </ul>
+
+                <p>2PL ensures that the transaction follows these two phases strictly, which helps to avoid issues such as deadlocks and uncommitted changes from other transactions.</p>
+
+                <h3>Benefits of Two-Phase Locking</h3>
+                <ul>
+                    <li>Ensures serializability, a key property in concurrency control.</li>
+                    <li>Reduces the chances of conflicts between transactions.</li>
+                    <li>Helps maintain the consistency of the database in a multi-user environment.</li>
+                </ul>
+
+                <h3>Limitations of 2PL</h3>
+                <ul>
+                    <li>Can lead to deadlocks if not handled properly.</li>
+                    <li>Requires careful implementation to ensure that locks are managed effectively.</li>
+                    <li>Performance might degrade in systems with high contention for resources.</li>
+                </ul>
+
+                <h3>Example of Two-Phase Locking</h3>
+                <p>Imagine two transactions, <code>T1</code> and <code>T2</code>, each trying to access the same set of resources. 2PL ensures that each transaction must lock all necessary resources during the growing phase, and once it begins releasing locks in the shrinking phase, it cannot request any new locks.</p>
+
+                <p>In this way, 2PL provides a robust approach for managing concurrency in transactional systems.</p>        </article>
+        <form id="commentForm">
+            <label for="comment">Leave a Comment:</label>
+            <input type="text" id="comment" name="comment" required>
+            <button type="submit">Post Comment</button>
+        </form>
+        <div id="commentsSection">
+            <h3>Comments</h3>
+        </div>
+    </main>
+    <footer>
+        <p>© 2025 My Blog. All rights reserved.</p>
+    </footer>
+    <script>
+        const commentForm = document.getElementById('commentForm');
+        const commentsSection = document.getElementById('commentsSection');
+
+        commentForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const commentInput = document.getElementById('comment');
+            const commentText = commentInput.value.trim();
+
+            if (commentText) {
+                const comment = document.createElement('p');
+                comment.textContent = commentText;
+                commentsSection.appendChild(comment);
+                commentInput.value = ''; 
+            }
+        });
+    </script>
+</body>
+</html>
